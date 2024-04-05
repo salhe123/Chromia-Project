@@ -1,0 +1,28 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "the",
+  "main": "index.js",
+  "scripts": {
+    "test": "dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salhe123/My-Rell-Dapp.git"
+  },
+  "keywords": [
+    "hey"
+  ],
+  "author": "seya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/salhe123/My-Rell-Dapp/issues"
+  },
+  "homepage": "https://github.com/salhe123/My-Rell-Dapp#readme",
+  "dependencies": {
+    "typescript": "^5.4.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.4"
+  }
+}
