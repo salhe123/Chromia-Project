@@ -7,5 +7,14 @@ object my_name {
 operation set_name(name) {
   my_name.name = name;
 }
+entity book {
+  key isbn:text;
+  title:text;
+  author:text;
+}
+operation create_book(isbn:text,title:text,author:text){
+  create book (isbn=isbn,title=title,author=author);
+
+}
 
 query hello_world() = "Hello %s!".format(my_name.name);

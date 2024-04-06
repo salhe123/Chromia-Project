@@ -1,0 +1,14 @@
+import main.*;
+
+function test_add_book() {
+    rell.test.tx()
+        .op(create_book("123", "Book1", "Author1"))
+        .op(create_book("124", "Book2", "Author2"))
+        .run();
+
+    val all_books = book @* { };
+
+    assert_equals(all_books.size(), 2);
+    assert_equals(all_books[0].title, "Book1");
+    assert_equals(all_books[0].author, "Author1");
+}
