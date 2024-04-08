@@ -10,3 +10,25 @@ function test_add_name() {
     tx.run();
     assert_equals(my_name.name, "Bob");
 }
+import main.*;
+function test_add_book_review() {
+    rell.test.tx()
+        .op(create_book("123", "Book1", "Author1"))
+        .op(create_book_review("123", "Reviewer1", "ReviewText1", 5))
+        .op(create_book_review("123", "Reviewer2", "ReviewText2", 3))
+        .run();
+
+    val reviews = book_review @* { };
+    val book = book @ { .isbn == "123" };
+
+    assert_equals(reviews.size(), 2);
+    assert_equals(book, reviews[0].book);
+    assert_equals(reviews[0].reviewer_name, "Reviewer1");
+    assert_equals(reviews[0].review, "ReviewText1");
+    assert_equals(reviews[0].rating, 5);
+}
+function test_add_book_review_for_missing_book() {
+    rell.test.tx()
+        .op(create_book_review("N/A", "Reviewer2", "ReviewText2", 3))
+        .run_must_fail("Book with isbn N/A not found");
+}

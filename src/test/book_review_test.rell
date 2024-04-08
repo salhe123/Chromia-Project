@@ -1,14 +1,26 @@
+@test module;
 import main.*;
-
 function test_add_book() {
+    val book_keeper = rell.test.keypair(
+    priv = x"DEE3B1414196653BF7FA621B2EEFC3146093B1932BA2ABFAEED830906D81972A",
+    pub = x"0359A8F2CE1BEF95F583169B7DF053AA227A93B2652B0A9C22975FEED638032610"
+);
     rell.test.tx()
         .op(create_book("123", "Book1", "Author1"))
         .op(create_book("124", "Book2", "Author2"))
+        .sign(book_keeper)
         .run();
 
     val all_books = book @* { };
-
+    val bob = rell.test.keypairs.bob;
     assert_equals(all_books.size(), 2);
     assert_equals(all_books[0].title, "Book1");
     assert_equals(all_books[0].author, "Author1");
+}
+function test_add_book_as_non_admin() {
+    val bob = rell.test.keypairs.bob;
+    rell.test.tx()
+        .op(create_book("123", "Book1", "Author1"))
+        .sign(bob)
+        .run_must_fail();
 }
